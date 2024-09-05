@@ -4,12 +4,12 @@ import logo from '@/public/assets/Logo.png'
 import { InputWithButton } from '@/components/inputWithButton'
 import { ShoppingCart } from 'lucide-react';
 import { Heart } from 'lucide-react';
-import { Menu } from 'lucide-react';
+import SideBar from '@/components/landingpageSideBar';
 
 
 const NavBar = () => {
   return (
-    <div className='flex justify-between px-3 md:px-10 py-5 items-center border-b border-slate-500 shadow-lg'>
+    <div className='flex justify-between px-3 md:px-10 py-5 items-center shadow-lg'>
         <Image src={logo} alt="logo"/>
 
         <ul className='md:flex space-x-5 hidden'>
@@ -24,8 +24,8 @@ const NavBar = () => {
             <Heart />
             <ShoppingCart />
         </div>
-        
-        <Menu className='md:hidden' />
+
+         <SideBar />  
     </div>
   )
 }
