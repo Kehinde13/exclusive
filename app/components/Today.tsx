@@ -2,7 +2,7 @@
 import React from "react";
 import CountdownTimer from "@/lib/countdowntimer";
 import { ProductsCarousel } from "@/components/productsCarousel";
-import { products } from '@/lib/products'
+import { flashSales } from '@/lib/products'
 
 function Today() {
   const { days, hours, minutes, seconds } = CountdownTimer();
@@ -37,7 +37,7 @@ function Today() {
         </div>
       </div>
 
-      <ProductsCarousel products={products}/>
+      <ProductsCarousel products={flashSales}/>
 
       <div className="flex justify-center">
         <button className="bg-[#DB4444] px-4 py-2 text-white rounded-sm mb-10">
