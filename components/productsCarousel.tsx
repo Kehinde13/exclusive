@@ -7,14 +7,28 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { products } from '@/lib/products'
+import { StaticImageData } from "next/image"
 
-export function ProductsCarousel() {
+type Product = {
+  name: string;
+  price: string;
+  discount: string;
+  ratings: number;
+  feedbacks: number;
+  image: StaticImageData;
+};
+
+type ProductsCarouselProps = {
+  products: Product[];
+};
+
+
+export function ProductsCarousel({products} : ProductsCarouselProps) {
   return (
-    <Carousel className="w-full mt-10 md:mt-20">
+    <Carousel className="w-full my-10 md:my-20">
       <CarouselContent className="-ml-1">
         {products.map((product, index) => (
-          <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={index} className="pl-1 md:basis-1/3 lg:basis-1/4">
             <ProductsCard product={product}/>
           </CarouselItem>
         ))}
