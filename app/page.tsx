@@ -1,3 +1,4 @@
+import Banner from "./components/Banner";
 import BestSeller from "./components/BestSeller";
 import { Categories } from "./components/Categories";
 import { Header } from "./components/Header";
@@ -12,6 +13,7 @@ export default function Home() {
        <Today />
        <Categories />
        <BestSeller />
+       <Banner />
     </main>
   );
 }
