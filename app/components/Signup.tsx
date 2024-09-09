@@ -36,7 +36,7 @@ function Signup({ toggleLogin }: Prop) {
         Sign up with Google
       </button>
       <p className="text-center">
-        Already have an account? <span onClick={toggleLogin}>Log In</span>
+        Already have an account? <span onClick={toggleLogin} className="cursor-pointer">Log In</span>
       </p>
     </form>
   );
