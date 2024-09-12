@@ -1,47 +1,58 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "@/public/assets/Logo.png";
 import { InputWithButton } from "@/components/inputWithButton";
-import { ShoppingCart } from "lucide-react";
-import { Heart } from "lucide-react";
+import { ShoppingCart, Heart } from "lucide-react";
 import SideBar from "@/components/landingpageSideBar";
 import Link from "next/link";
 
 const NavBar = () => {
+  const [currentPath, setCurrentPath] = useState("");
+
+  // This ensures that client-side-only logic runs after component mounts
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentPath(window.location.pathname);
+    }
+  }, []);
+
   return (
-    <div className="flex justify-between px-3 md:px-10 py-5 items-center shadow-lg">
+    <div className="flex justify-between px-3 md:px-10 py-5 items-center shadow-lg sticky top-0 z-50 bg-white">
       <Image src={logo} alt="logo" />
 
       <ul className="md:flex space-x-5 hidden">
-        <Link href={"/"}>
+        <Link href={currentPath === "/" ? "/" : "/admin"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            Home
+            {currentPath === "/" ? "Home" : "Dashboard"}
           </li>
         </Link>
-        <Link href={"/contact"}>
+        <Link href={currentPath === "/" ? "/contact" : "/product"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            Contact
+            {currentPath === "/" ? "Contact" : "Product"}
           </li>
         </Link>
-        <Link href={"/about"}>
+        <Link href={currentPath === "/" ? "/about" : "/customers"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            About
+          {currentPath === "/" ? "About" : "Customers"}
           </li>
         </Link>
-        <Link href={"/auth"}>
+        <Link href={currentPath === "/" ? "/auth" : "/sales"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            Log In
+          {currentPath === "/" ? "Account" : "Sales"}
           </li>
         </Link>
       </ul>
 
-      <div className="md:flex items-center space-x-4 hidden">
-        <InputWithButton />
-        <Heart />
-        <ShoppingCart />
-      </div>
+      {currentPath !== "/admin" && (
+        <div className="md:flex items-center space-x-4 hidden">
+          <InputWithButton />
+          <Heart />
+          <ShoppingCart />
+        </div>
+      )}
 
-      <SideBar />
+      <SideBar currentPath={currentPath} />
     </div>
   );
 };

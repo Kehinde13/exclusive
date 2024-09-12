@@ -7,7 +7,11 @@ import { Heart, Menu, ShoppingCart } from "lucide-react";
 import { InputWithButton } from "./inputWithButton";
 import Link from "next/link";
 
-function SideBar() {
+type Prop = {
+  currentPath: string
+}
+
+function SideBar({currentPath}: Prop) {
   return (
     <Drawer>
       <DrawerTrigger className="md:hidden">
@@ -21,18 +25,18 @@ function SideBar() {
         </div>
 
         <ul className="text-center flex flex-col space-y-10 my-10">
-          <Link href={"/"}>
-            <li>Home</li>
+          <Link href={currentPath === "/" ? "/" : "/admin"}>
+            <li>{currentPath === "/" ? "Home" : "Dashboard"}</li>
           </Link>
-          <Link href={"/contact"}>
-            <li>Contact</li>
+          <Link href={currentPath === "/" ? "/contact" : "/product"}>
+            <li>{currentPath === "/" ? "Contact" : "Product"}</li>
           </Link>
 
-          <Link href={"/about"}>
-            <li>About</li>
+          <Link href={currentPath === "/" ? "/about" : "/customers"}>
+            <li>{currentPath === "/" ? "About" : "Customers"}</li>
           </Link>
-          <Link href={"/auth"}>
-            <li>Sign Up</li>
+          <Link href={currentPath === "/" ? "/auth" : "/sales"}>
+            <li>{currentPath === "/" ? "Account" : "Sales"}</li>
           </Link>
         </ul>
       </DrawerContent>
