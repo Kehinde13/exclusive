@@ -28,7 +28,7 @@ function SideBar({currentPath}: Prop) {
           <Link href={currentPath === "/" ? "/" : "/admin"}>
             <li>{currentPath === "/" ? "Home" : "Dashboard"}</li>
           </Link>
-          <Link href={currentPath === "/" ? "/contact" : "/product"}>
+          <Link href={currentPath === "/" ? "/contact" : "/products"}>
             <li>{currentPath === "/" ? "Contact" : "Product"}</li>
           </Link>
 

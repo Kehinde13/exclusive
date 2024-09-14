@@ -27,7 +27,7 @@ const NavBar = () => {
             {currentPath === "/" ? "Home" : "Dashboard"}
           </li>
         </Link>
-        <Link href={currentPath === "/" ? "/contact" : "/product"}>
+        <Link href={currentPath === "/" ? "/contact" : "/admin/products"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
             {currentPath === "/" ? "Contact" : "Product"}
           </li>
