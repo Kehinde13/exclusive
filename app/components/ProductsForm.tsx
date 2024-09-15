@@ -16,6 +16,7 @@ export default function ProductsForm({
   product?: Product | null;
 }) {
   const [error, action] = useFormState(
+    //The .bind(null, product.id) ensures that the product.id is passed as the first argument when updateProduct is called.
     product == null ? addNewProduct : updateProduct.bind(null, product.id), {}
   );
   const [price, setPrice] = useState<number | undefined>(product?.price);
