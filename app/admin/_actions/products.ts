@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from '@/db/db'
-import { boolean, z } from 'zod'
+import { z } from 'zod'
 import fs from "fs/promises"
 import { notFound, redirect } from 'next/navigation'
 
@@ -32,8 +32,8 @@ export async function addNewProduct(prevState: unknown, formData: FormData) {
   await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
 
   await fs.mkdir("public/products", {recursive: true})
-  const imagePath = `products/${crypto.randomUUID()}-${data.image.name}`
-  await fs.writeFile(imagePath, Buffer.from(await data.image.arrayBuffer()))
+  const imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`
+  await fs.writeFile(`public${imagePath}`, Buffer.from(await data.image.arrayBuffer()))
 
   await prisma.product.create({ data: {
     isAvailable: false,
@@ -75,11 +75,11 @@ export async function updateProduct(
   await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
   }
 
-  let imagePath =product.imagePath
+  let imagePath = product.imagePath
   if (data.image != null && data.image.size > 0) {
     await fs.unlink(`public${product.imagePath}`)
     filePath = `/products/${crypto.randomUUID()}-${data.image.name}`
-  await fs.writeFile(imagePath, Buffer.from(await data.image.arrayBuffer()))
+  await fs.writeFile(`public${imagePath}`, Buffer.from(await data.image.arrayBuffer()))
   }
 
   await prisma.product.update({ 

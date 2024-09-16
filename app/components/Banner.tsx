@@ -1,11 +1,52 @@
-"use client"
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import jblSpeaker from "@/public/assets/Frame 694.png";
-import CountdownTimer from "@/lib/countdowntimer";
+
+type TimeLeft = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
 
 function Banner() {
-  const { days, hours, minutes, seconds } = CountdownTimer();
+  const targetDate = "2024-12-31T23:59:59";
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(targetDate));
+    }, 1000);
+
+    return () => clearInterval(timer); // Cleanup the interval on component unmount
+  }, [targetDate]);
+
+  function calculateTimeLeft(targetDate: string): TimeLeft {
+    const difference = +new Date(targetDate) - +new Date();
+
+    if (difference > 0) {
+      return {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    } else {
+      return {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      };
+    }
+  }
+
   return (
     <div className="my-10 md:my-16 bg-black rounded-sm md:p-10 p-5 w-[90%] mx-auto md:flex justify-between">
       <div className="flex flex-col gap-5 md:gap-10 p-5 md:p-10">
@@ -16,19 +57,19 @@ function Banner() {
 
         <div className="flex gap-2 md:gap-0 justify-between text-xs font-semibold md:w-[60%]">
           <div className="rounded-full bg-white p-2 text-center">
-            <p>{hours}</p>
+            <p>{timeLeft.hours}</p>
             <p>hours</p>
           </div>
           <div className="rounded-full bg-white p-2 text-center">
-            <p>{days}</p>
+            <p>{timeLeft.days}</p>
             <p>days</p>
           </div>
           <div className="rounded-full bg-white p-2 text-center">
-            <p>{minutes}</p>
+            <p>{timeLeft.minutes}</p>
             <p>mins</p>
           </div>
           <div className="rounded-full bg-white p-2 text-center">
-            <p>{seconds}</p>
+            <p>{timeLeft.seconds}</p>
             <p>secs</p>
           </div>
         </div>

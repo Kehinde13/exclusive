@@ -5,13 +5,13 @@ import Featured from "./components/Featured";
 import { Header } from "./components/Header";
 import OurProducts from "./components/OurProducts";
 import Services from "./components/Services";
-import Today from "./components/Today";
+import FlashSales from "./components/flashSales";
 
 export default function Home() {
   return (
     <main>
        <Header />
-       <Today />
+       <FlashSales />
        <Categories />
        <BestSeller />
        <Banner />

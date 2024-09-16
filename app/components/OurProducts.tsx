@@ -1,9 +1,12 @@
-"use client"
 import React from "react";
 import { products } from "@/lib/products";
 import { ProductsCarousel } from "@/components/productsCarousel";
+import prisma from "@/db/db";
 
-function OurProducts() {
+async function OurProducts() {
+  const products = await prisma.product.findMany({
+    where: {isAvailable: true}
+})
   return (
     <div className="lg:p-20 md:p-10 p-5 w-full">
       <div className="flex text-[#DB4444] items-center gap-3 mb-10 font-semibold">

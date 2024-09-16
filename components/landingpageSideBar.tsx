@@ -28,14 +28,14 @@ function SideBar({currentPath}: Prop) {
           <Link href={currentPath === "/" ? "/" : "/admin"}>
             <li>{currentPath === "/" ? "Home" : "Dashboard"}</li>
           </Link>
-          <Link href={currentPath === "/" ? "/contact" : "/products"}>
+          <Link href={currentPath === "/" ? "/contact" : "/admin/products"}>
             <li>{currentPath === "/" ? "Contact" : "Product"}</li>
           </Link>
 
-          <Link href={currentPath === "/" ? "/about" : "/customers"}>
+          <Link href={currentPath === "/" ? "/about" : "/admin/customers"}>
             <li>{currentPath === "/" ? "About" : "Customers"}</li>
           </Link>
-          <Link href={currentPath === "/" ? "/auth" : "/sales"}>
+          <Link href={currentPath === "/" ? "/auth" : "/admin/sales"}>
             <li>{currentPath === "/" ? "Account" : "Sales"}</li>
           </Link>
         </ul>

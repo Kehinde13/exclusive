@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react"
 import ProductsCard from "./productsCard"
 import {
@@ -7,16 +8,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { StaticImageData } from "next/image"
+import { Product } from "@prisma/client"
 
-type Product = {
-  name: string;
-  price: string;
-  discount: string;
-  ratings: number;
-  feedbacks: number;
-  image: StaticImageData;
-};
+
 
 type ProductsCarouselProps = {
   products: Product[];

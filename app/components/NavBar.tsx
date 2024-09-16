@@ -1,50 +1,47 @@
 "use client";
+
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import logo from "@/public/assets/Logo.png";
 import { InputWithButton } from "@/components/inputWithButton";
 import { ShoppingCart, Heart } from "lucide-react";
 import SideBar from "@/components/landingpageSideBar";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // Import usePathname
 
 const NavBar = () => {
-  const [currentPath, setCurrentPath] = useState("");
-
-  // This ensures that client-side-only logic runs after component mounts
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setCurrentPath(window.location.pathname);
-    }
-  }, []);
+  const pathname = usePathname(); // Get the current pathname
 
   return (
     <div className="flex justify-between px-3 md:px-10 py-5 items-center shadow-lg sticky top-0 z-50 bg-white">
-      <Image src={logo} alt="logo" />
+      <Link href="/">
+        <Image src={logo} alt="logo" />
+      </Link>
 
       <ul className="md:flex space-x-5 hidden">
-        <Link href={currentPath === "/" ? "/" : "/admin"}>
+        <Link href={pathname === "/" ? "/" : "/admin"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {currentPath === "/" ? "Home" : "Dashboard"}
+            {pathname === "/" ? "Home" : "Dashboard"}
           </li>
         </Link>
-        <Link href={currentPath === "/" ? "/contact" : "/admin/products"}>
+        <Link href={pathname === "/" ? "/contact" : "/admin/products"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {currentPath === "/" ? "Contact" : "Product"}
+            {pathname === "/" ? "Contact" : "Product"}
           </li>
         </Link>
-        <Link href={currentPath === "/" ? "/about" : "/customers"}>
+        <Link href={pathname === "/" ? "/about" : "/customers"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-          {currentPath === "/" ? "About" : "Customers"}
+            {pathname === "/" ? "About" : "Customers"}
           </li>
         </Link>
-        <Link href={currentPath === "/" ? "/auth" : "/sales"}>
+        <Link href={pathname === "/" ? "/auth" : "/sales"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-          {currentPath === "/" ? "Account" : "Sales"}
+            {pathname === "/" ? "Account" : "Sales"}
           </li>
         </Link>
       </ul>
 
-      {currentPath !== "/admin" && (
+      {!pathname.includes("admin") && (
         <div className="md:flex items-center space-x-4 hidden">
           <InputWithButton />
           <Heart />
@@ -52,7 +49,7 @@ const NavBar = () => {
         </div>
       )}
 
-      <SideBar currentPath={currentPath} />
+      <SideBar currentPath={pathname} />
     </div>
   );
 };
