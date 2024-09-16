@@ -1,12 +1,20 @@
 import React from "react";
-import { products } from "@/lib/products";
 import { ProductsCarousel } from "@/components/productsCarousel";
 import prisma from "@/db/db";
+import { cache } from "@/lib/cache";
 
+const getAllProducts = cache(
+  async () => {
+    return await prisma.product.findMany({
+      where: {isAvailable: true}
+    })
+  },
+  ['/', 'all-products'],
+  {revalidate: 60 * 60 * 24}
+)
 async function OurProducts() {
-  const products = await prisma.product.findMany({
-    where: {isAvailable: true}
-})
+  const products = await getAllProducts()
+  
   return (
     <div className="lg:p-20 md:p-10 p-5 w-full">
       <div className="flex text-[#DB4444] items-center gap-3 mb-10 font-semibold">

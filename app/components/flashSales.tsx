@@ -1,25 +1,31 @@
 import React from "react";
 import { ProductsCarousel } from "@/components/productsCarousel";
-import { flashSales } from '@/lib/products'
-
 import prisma from "@/db/db";
 import FlashSalesCountdown from "./flashSalesCountdown";
 import { Button } from "@/components/ui/button";
+import { cache } from "@/lib/cache"; // Import your cache function
+
+// Create a cached version of the product query
+const getAvailableProducts = cache(
+  async () => {
+    return await prisma.product.findMany({
+      where: { isAvailable: true },
+    });
+  },
+  ["/", "flash-sales-products"], // Key parts for cache identification
+  { revalidate: 60 * 60 * 24} // Cache revalidation time in seconds (optional)
+);
 
 async function FlashSales() {
-  const products = await prisma.product.findMany({
-    where: {isAvailable: true}
-})
- 
+  const products = await getAvailableProducts(); // Use the cached query function
+
   return (
     <div className="lg:p-20 md:p-10 p-5 w-full">
       <FlashSalesCountdown />
-      <ProductsCarousel products={products}/>
+      <ProductsCarousel products={products} />
 
       <div className="flex justify-center">
-        <Button  className=" mb-10">
-          View All Products
-        </Button>
+        <Button className="mb-10">View All Products</Button>
       </div>
       <hr />
     </div>

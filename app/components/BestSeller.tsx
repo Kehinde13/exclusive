@@ -1,12 +1,22 @@
 import React from "react";
-import { bestSelling } from "@/lib/products";
+import { bestSelling, products } from "@/lib/products";
 import { ProductsCarousel } from "@/components/productsCarousel";
 import prisma from "@/db/db";
+import { cache } from "@/lib/cache";
 
-async function BestSeller() {
-  const products = await prisma.product.findMany({
+const getBestSellingProducts = cache(
+  async () => {
+  return await prisma.product.findMany({
     where: {isAvailable: true}
 })
+},
+["/", "best-selling-products"],
+{revalidate: 60 * 60 *24}
+)
+
+async function BestSeller() {
+  const products = await getBestSellingProducts()
+  
   return (
     <div className="lg:p-20 md:p-10 p-5 w-full">
       <div className="flex text-[#DB4444] items-center gap-3 mb-10 font-semibold">
