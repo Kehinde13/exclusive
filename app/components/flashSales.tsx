@@ -3,7 +3,7 @@ import { ProductsCarousel } from "@/components/productsCarousel";
 import prisma from "@/db/db";
 import FlashSalesCountdown from "./flashSalesCountdown";
 import { Button } from "@/components/ui/button";
-import { cache } from "@/lib/cache"; // Import your cache function
+import { cache } from "@/lib/cache";
 
 // Create a cached version of the product query
 const getAvailableProducts = cache(
@@ -25,7 +25,9 @@ async function FlashSales() {
       <ProductsCarousel products={products} />
 
       <div className="flex justify-center">
-        <Button className="mb-10">View All Products</Button>
+        <Button className="mb-10">
+          View All Products
+        </Button>
       </div>
       <hr />
     </div>

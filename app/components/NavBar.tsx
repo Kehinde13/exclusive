@@ -19,24 +19,24 @@ const NavBar = () => {
       </Link>
 
       <ul className="md:flex space-x-5 hidden">
-        <Link href={pathname === "/" ? "/" : "/admin"}>
+        <Link href={pathname === "/admin" ? "/admin" : "/"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {pathname === "/" ? "Home" : "Dashboard"}
+            {pathname === "/admin" ? "Dashboard" : "Home"}
           </li>
         </Link>
-        <Link href={pathname === "/" ? "/contact" : "/admin/products"}>
+        <Link href={pathname === "/admin" ? "/admin/products" : "/contact"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {pathname === "/" ? "Contact" : "Product"}
+            {pathname === "/admin" ? "Product" : "Contact"}
           </li>
         </Link>
-        <Link href={pathname === "/" ? "/about" : "/customers"}>
+        <Link href={pathname === "/admin" ? "/customers" : "/about"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {pathname === "/" ? "About" : "Customers"}
+            {pathname === "/admin" ? "Customers" : "About"}
           </li>
         </Link>
-        <Link href={pathname === "/" ? "/auth" : "/sales"}>
+        <Link href={pathname === "/admin" ? "/sales" : "/auth"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {pathname === "/" ? "Account" : "Sales"}
+            {pathname === "/admin" ? "Sales" : "Account"}
           </li>
         </Link>
       </ul>

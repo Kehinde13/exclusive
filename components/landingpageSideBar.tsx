@@ -25,18 +25,18 @@ function SideBar({currentPath}: Prop) {
         </div>
 
         <ul className="text-center flex flex-col space-y-10 my-10">
-          <Link href={currentPath === "/" ? "/" : "/admin"}>
-            <li>{currentPath === "/" ? "Home" : "Dashboard"}</li>
+          <Link href={currentPath === "/admin" ? "/admin" : "/"}>
+            <li>{currentPath === "/admin" ? "Dashboard" : "Home"}</li>
           </Link>
-          <Link href={currentPath === "/" ? "/contact" : "/admin/products"}>
-            <li>{currentPath === "/" ? "Contact" : "Product"}</li>
+          <Link href={currentPath === "/admin" ? "/admin/products" : "/contact"}>
+            <li>{currentPath === "/admin" ? "Product" : "Contact"}</li>
           </Link>
 
-          <Link href={currentPath === "/" ? "/about" : "/admin/customers"}>
-            <li>{currentPath === "/" ? "About" : "Customers"}</li>
+          <Link href={currentPath === "/admin" ? "/admin/customers" : "/about"}>
+            <li>{currentPath === "/admin" ? "Customers" : "About"}</li>
           </Link>
-          <Link href={currentPath === "/" ? "/auth" : "/admin/sales"}>
-            <li>{currentPath === "/" ? "Account" : "Sales"}</li>
+          <Link href={currentPath === "/admin" ? "/admin/sales" : "/auth"}>
+            <li>{currentPath === "/admin" ? "Sales" : "Account"}</li>
           </Link>
         </ul>
       </DrawerContent>
