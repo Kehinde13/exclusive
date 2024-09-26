@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import Image, { StaticImageData } from "next/image";
-import { Eye, EyeOff, Heart } from "lucide-react";
-import StarRating from "./starRating";
+import Image from "next/image";
 import { Product } from "@prisma/client";
 import { formatCurrency } from "@/lib/formatter";
 import { Button } from "./ui/button";
@@ -13,14 +11,7 @@ type Prop = {
 };
 
 function ProductsCard({ product }: Prop) {
-  const [seen, setSeen] = useState(false);
-  const [like, setLike] = useState(false);
-  const toggleSeen = () => {
-    setSeen(!seen);
-  };
-  const toggleLike = () => {
-    setLike(!like);
-  };
+  
   return (
     <Card className="flex overflow-hidden flex-col">
       <div className="relative w-full h-auto aspect-video">

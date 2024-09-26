@@ -19,24 +19,24 @@ const NavBar = () => {
       </Link>
 
       <ul className="md:flex space-x-5 hidden">
-        <Link href={pathname === "/admin" ? "/admin" : "/"}>
+        <Link href={pathname.includes("admin")  ? "/admin" : "/"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {pathname === "/admin" ? "Dashboard" : "Home"}
+            {pathname.includes("admin")  ? "Dashboard" : "Home"}
           </li>
         </Link>
-        <Link href={pathname === "/admin" ? "/admin/products" : "/contact"}>
+        <Link href={pathname.includes("admin")  ? "/admin/products" : "/contact"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {pathname === "/admin" ? "Product" : "Contact"}
+            {pathname.includes("admin")  ? "Product" : "Contact"}
           </li>
         </Link>
-        <Link href={pathname === "/admin" ? "/customers" : "/about"}>
+        <Link href={pathname.includes("admin")  ? "/admin/customers" : "/about"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {pathname === "/admin" ? "Customers" : "About"}
+            {pathname.includes("admin")  ? "Customers" : "About"}
           </li>
         </Link>
-        <Link href={pathname === "/admin" ? "/sales" : "/auth"}>
+        <Link href={pathname.includes("admin") ? "/admin/sales" : "/auth"}>
           <li className="hover:border-b border-slate-500 cursor-pointer">
-            {pathname === "/admin" ? "Sales" : "Account"}
+            {pathname.includes("admin")  ? "Sales" : "Account"}
           </li>
         </Link>
       </ul>

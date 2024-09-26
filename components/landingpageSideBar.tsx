@@ -25,18 +25,18 @@ function SideBar({currentPath}: Prop) {
         </div>
 
         <ul className="text-center flex flex-col space-y-10 my-10">
-          <Link href={currentPath === "/admin" ? "/admin" : "/"}>
-            <li>{currentPath === "/admin" ? "Dashboard" : "Home"}</li>
+          <Link href={currentPath.includes("/admin") ? "/admin" : "/"}>
+            <li>{currentPath.includes("/admin") ? "Dashboard" : "Home"}</li>
           </Link>
-          <Link href={currentPath === "/admin" ? "/admin/products" : "/contact"}>
-            <li>{currentPath === "/admin" ? "Product" : "Contact"}</li>
+          <Link href={currentPath.includes("/admin") ? "/admin/products" : "/contact"}>
+            <li>{currentPath.includes("/admin") ? "Product" : "Contact"}</li>
           </Link>
 
-          <Link href={currentPath === "/admin" ? "/admin/customers" : "/about"}>
-            <li>{currentPath === "/admin" ? "Customers" : "About"}</li>
+          <Link href={currentPath.includes("/admin") ? "/admin/customers" : "/about"}>
+            <li>{currentPath.includes("/admin") ? "Customers" : "About"}</li>
           </Link>
-          <Link href={currentPath === "/admin" ? "/admin/sales" : "/auth"}>
-            <li>{currentPath === "/admin" ? "Sales" : "Account"}</li>
+          <Link href={currentPath.includes("/admin") ? "/admin/sales" : "/auth"}>
+            <li>{currentPath.includes("/admin") ? "Sales" : "Account"}</li>
           </Link>
         </ul>
       </DrawerContent>

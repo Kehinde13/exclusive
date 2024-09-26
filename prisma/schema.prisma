@@ -29,7 +29,7 @@ model Product {
 model User {
   id         String   @id     @default(uuid())
   email      String   @unique
-  imagePath  String
+  imagePath  String?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   orders     Order[]
