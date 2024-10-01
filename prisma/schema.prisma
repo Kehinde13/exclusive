@@ -22,9 +22,10 @@ model Product {
   createdAt              DateTime       @default(now())
   updatedAt              DateTime       @updatedAt
   order                  Order[]
-  DownloadVerification   DownloadVerification[]
+  DownloadVerification    DownloadVerification[]
+  basketItems            BasketItem[]   // New relation for products in baskets
+  likedItems             LikedItem[]
 }
-
 
 model User {
   id         String   @id     @default(uuid())
@@ -33,8 +34,9 @@ model User {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   orders     Order[]
+  basket     Basket?   // One-to-one relationship with Basket
+  liked      Liked?
 }
-
 
 model Order  {
   id         String   @id @default(uuid())
@@ -44,8 +46,8 @@ model Order  {
 
   userId     String
   productId  String
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product    Product @relation(fields: [productId], references: [id], onDelete: Restrict)
 }
 
 model DownloadVerification  {
@@ -55,3 +57,45 @@ model DownloadVerification  {
   productId  String
   product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
+
+model Basket {
+  id         String   @id @default(uuid())
+  userId     String   @unique  // Each user has one basket
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  basketItems BasketItem[]      // Basket can hold multiple products
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model BasketItem {
+  id          String   @id @default(uuid())
+  quantity    Int
+  basketId    String
+  productId   String
+  basket      Basket   @relation(fields: [basketId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Liked {
+  id         String   @id @default(uuid())
+  userId     String   @unique  
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likedItems LikedItem[]      
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model LikedItem {
+  id          String   @id @default(uuid())
+  quantity    Int
+  likedId     String
+  productId   String
+  liked       Liked   @relation(fields: [likedId], references: [id], onDelete: Cascade)
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+

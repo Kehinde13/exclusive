@@ -3,9 +3,10 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Heart, Menu, ShoppingCart } from "lucide-react";
+import { Menu } from "lucide-react";
 import { InputWithButton } from "./inputWithButton";
 import Link from "next/link";
+import Cart from "@/app/components/ShoppingCart";
 
 type Prop = {
   currentPath: string
@@ -20,8 +21,7 @@ function SideBar({currentPath}: Prop) {
       <DrawerContent>
         <div className="flex items-center space-x-2 px-2 my-5">
           <InputWithButton />
-          <Heart />
-          <ShoppingCart />
+          <Cart />
         </div>
 
         <ul className="text-center flex flex-col space-y-10 my-10">

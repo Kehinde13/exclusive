@@ -4,13 +4,13 @@ import Image from "next/image";
 import React from "react";
 import logo from "@/public/assets/Logo.png";
 import { InputWithButton } from "@/components/inputWithButton";
-import { ShoppingCart, Heart } from "lucide-react";
 import SideBar from "@/components/landingpageSideBar";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // Import usePathname
+import { usePathname } from "next/navigation";
+import Cart from "./ShoppingCart";
 
 const NavBar = () => {
-  const pathname = usePathname(); // Get the current pathname
+  const pathname = usePathname();
 
   return (
     <div className="flex justify-between px-3 md:px-10 py-5 items-center shadow-lg sticky top-0 z-50 bg-white">
@@ -44,8 +44,7 @@ const NavBar = () => {
       {!pathname.includes("admin") && (
         <div className="md:flex items-center space-x-4 hidden">
           <InputWithButton />
-          <Heart />
-          <ShoppingCart />
+          <Cart />
         </div>
       )}
 

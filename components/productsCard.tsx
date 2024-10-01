@@ -25,8 +25,8 @@ function ProductsCard({ product }: Prop) {
         <p className="line-clamp-4">{product.description}</p>
       </CardContent>
       <CardFooter>
-        <Button asChild size="lg" className="w-full">
-          <Link href={`/products/${product.id}/purchase`}>Purchase</Link>
+        <Button size="lg" className="w-full">
+        Add To Cart{/* <Link href={`/products/${product.id}/purchase`}></Link> */}
         </Button>
       </CardFooter>
     </Card>
