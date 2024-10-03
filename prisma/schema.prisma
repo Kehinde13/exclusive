@@ -36,6 +36,7 @@ model User {
   orders     Order[]
   basket     Basket?   // One-to-one relationship with Basket
   liked      Liked?
+  isGuest    Boolean  @default(false)
 }
 
 model Order  {

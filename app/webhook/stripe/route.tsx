@@ -7,12 +7,11 @@ import PurchaseReceiptEmail from "@/email/PurchaseReceipts"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 const resend = new Resend(process.env.RESEND_API_KEY as string)
 
-console.log("hey");
 export async function POST(req: NextRequest) {
-  const event = await stripe.webhooks.constructEvent(
-      await req.text(),
-      req.headers.get("stripe-signature") as string,
-      process.env.STRIPE_WEBHOOK_SECRET as string
+  const event = stripe.webhooks.constructEvent(
+    await req.text(),
+    req.headers.get("stripe-signature") as string,
+    process.env.STRIPE_WEBHOOK_SECRET as string
   )
 
   if (event.type === "charge.succeeded") {
@@ -24,14 +23,12 @@ export async function POST(req: NextRequest) {
     const product = await prisma.product.findUnique({ where: { id: productId } })
     if (product == null || email == null) {
       return new NextResponse("Bad Request", { status: 400 })
-    }
-    console.log(product);           
+    }          
     
     const userFields = {
         email,
         orders: { create: { productId, pricePaid } },
       } 
-      console.log(userFields);
       const {
         orders: [order],
       } = await prisma.user.upsert({

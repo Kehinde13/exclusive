@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Product } from "@prisma/client";
 import { formatCurrency } from "@/lib/formatter";
 import { Button } from "./ui/button";
-import Link from "next/link";
+import addProductToBasket from "@/lib/addProductToCart";
 
 type Prop = {
   product: Product
@@ -25,7 +25,7 @@ function ProductsCard({ product }: Prop) {
         <p className="line-clamp-4">{product.description}</p>
       </CardContent>
       <CardFooter>
-        <Button size="lg" className="w-full">
+        <Button size="lg" className="w-full" onClick={(e) => addProductToBasket( product.id)}>
         Add To Cart{/* <Link href={`/products/${product.id}/purchase`}></Link> */}
         </Button>
       </CardFooter>

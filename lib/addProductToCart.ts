@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-async function addProductToBasket(userId: string, productId: string, quantity: number) {
+export default async function addProductToBasket(userId: string, productId: string) {
   // Check if the product exists
   const product = await prisma.product.findUnique({
     where: { id: productId }
@@ -20,14 +20,17 @@ async function addProductToBasket(userId: string, productId: string, quantity: n
     basket = await prisma.basket.create({
       data: {
         userId: userId,
-      }
+      },
+      include: {
+        basketItems: true, // Include basketItems in the created basket
+      },
     });
   }
 
   // Check if the product is already in the basket
   const existingBasketItem = await prisma.basketItem.findFirst({
     where: {
-      basketId: basket.id,
+      basketId: basket?.id,
       productId: productId
     }
   });
@@ -36,7 +39,7 @@ async function addProductToBasket(userId: string, productId: string, quantity: n
     // Update the quantity if the product is already in the basket
     await prisma.basketItem.update({
       where: { id: existingBasketItem.id },
-      data: { quantity: existingBasketItem.quantity + quantity }
+      data: { quantity: existingBasketItem.quantity += 1 }
     });
   } else {
     // Add a new BasketItem for the product
@@ -44,10 +47,10 @@ async function addProductToBasket(userId: string, productId: string, quantity: n
       data: {
         basketId: basket.id,
         productId: productId,
-        quantity: quantity
+        quantity: 1
       }
     });
   }
 
-  console.log('Product added to basket successfully');
+  alert('Product added to basket successfully');
 }
